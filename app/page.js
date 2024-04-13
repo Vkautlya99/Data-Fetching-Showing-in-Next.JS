@@ -1,34 +1,34 @@
-"use client"
+'use client'
+import axios from 'axios'
 import React, { useState } from 'react'
 
+
 const page = () => {
-  const [Text, setText] = useState("");
+  const [Users, setUsers] = useState([]);
+  
+  const userData = async () => {
+    const { data } = await axios.get("https://jsonplaceholder.typicode.com/users");
+    setUsers(data);
+  }
+
 
 
 
   return (
     <>
-      <h1
-        className='border-5 font-bold text-2xl border-zinc-900 px-8 py-2 m-2'>
-        Enter Your Name :
-      </h1>
-      <form>
-
-      <input
-        type="text"
-        className='text-xl m-10 px-3 py-2 h-14 align-middle items-center justify-between border-black border-2'
-        
-        value={Text}        
-        onChange={(e) => {
-          setText(e.target.value);
-          console.log(Text)
-        }}
-        
-        />
-      </form>
+      <div className=''>
+        <button onClick={userData} className='p-2 h-12 w-28 bg-green-600 font-bold text-white rounded-md'>Get Data</button>
+      </div>
+      <div className='w-full bg-slate-400 rounded p-7 mt-3'>
+        <ul>
+          {Users.map((e) => {
+            return <li>{e.name} ---------- <a href="">Explore</a></li>
+          })}
+        </ul>
+      </div>
+    
     </>
   )
 }
 
 export default page
-
